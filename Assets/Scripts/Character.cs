@@ -33,7 +33,10 @@ public class Character : MonoBehaviour
     [SerializeField]
     protected TMPro.TextMeshPro nickText;
 
-
+    //Here (below) we have set level and xp of players, and programmed a way to distribute attribute points (10 availablePoints) to the stats style, luck, and rhythm. 
+    //We have done this using the Random class- accessing Range, and then specifying the minimun and maximum integers to select from. 
+    //Before moving to the next stat, the number assigned to the previous stat is subtracted from 'availablePoints', this allows the point limit of 10 points to work in limiting the player's abilities.
+    //Notice that style and luck have been furthur limited by subtracting 2, and 1 point(s) respectively, this is so that all 3 stats are ensured to be assigned at least 1 point.
     void Awake()
     {
         InitialStats();
@@ -44,7 +47,7 @@ public class Character : MonoBehaviour
         style = Random.Range(1, availablePoints-2);
         availablePoints -= style;
 
-        luck = Random.Range(1, availablePoints);
+        luck = Random.Range(1, availablePoints-1);
         availablePoints -= luck;
 
         rhythm = availablePoints;

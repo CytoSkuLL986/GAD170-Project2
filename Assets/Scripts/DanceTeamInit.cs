@@ -20,10 +20,12 @@ public class DanceTeamInit : MonoBehaviour
     public int dancersPerSide = 3;
     public CharacterNameGenerator nameGenerator;
 
+    // Function of initialising teams(InitTeams) was subscirbed to GameEvent "OnBattleInitialise" using +=
     private void OnEnable()
     {
         GameEvents.OnBattleInitialise += InitTeams;
     }
+    // 'InitTeams' function unsubscribes from GameEvent "OnBattleInitialise" on disable, using -=
     private void OnDisable()
     {
         GameEvents.OnBattleInitialise -= InitTeams;
@@ -31,13 +33,15 @@ public class DanceTeamInit : MonoBehaviour
 
     void InitTeams()
     {
+        //Here, we accessed the function that allows us to name each of teams. The function takes an input of string, so that is what was given.
         teamA.SetTroupeName("Monkies");
         teamB.SetTroupeName("Donkies");
-
+        
+        //Here we decided which side of the screen each team is on. we have done this by inputing the floats options of 1 and -1 (brought to our knowlwdge by lecturer) in the function that we have accessed from the team names.
         teamA.InitaliseTeamFromNames(dancerPrefab, -1, nameGenerator.GenerateNames(dancersPerSide));
         teamB.InitaliseTeamFromNames(dancerPrefab, 1, nameGenerator.GenerateNames(dancersPerSide));
 
-            //This(below) can be deleted.
+            //This(below) can be deleted (but I am choosing to keep it xD).
         Debug.LogWarning("InitTeams called, needs to generate names for the teams and set them with teamA.SetTroupeName");
 
         Debug.LogWarning("InitTeams called, needs to create character names via CharacterNameGenerator and get them into the team.InitaliseTeamFromNames");
